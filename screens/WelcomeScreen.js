@@ -10,17 +10,17 @@ import {
 } from "react-native";
 import AppButton from "../components/AppButton";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       style={styles.background}
       source={require("../assets/hamburger.jpg")}
     >
       <View style={styles.buttonsContainer}>
-        <AppButton title="Login" onPress={() => console.log("Login pressed")} />
+        <AppButton title="Login" onPress={() => navigation.navigate("Login")} />
         <AppButton
           title="Register"
-          onPress={() => console.log("Register pressed")}
+          onPress={() => navigation.navigate("Register")}
         />
       </View>
     </ImageBackground>
@@ -39,4 +39,5 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
 });
+
 export default WelcomeScreen;
