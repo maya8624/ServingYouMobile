@@ -1,11 +1,13 @@
-import React from "react";
-import { FlatList } from "react-native";
+import React, { useState } from "react";
+import { Button, FlatList } from "react-native";
 
 import AppText from "../components/AppTextInput";
-import OrderList from "../components/OrderList";
+import ListItemDeleteAction from "../components/ListItemDeleteAction";
+import ListItemSeparator from "../components/ListItemSeparator";
+import OrderInfo from "../components/OrderInfo";
 import Screen from "../components/Screen";
 
-const menus = [
+const initialMenus = [
   {
     id: 1,
     name: "Pork on the grill",
@@ -29,19 +31,40 @@ const menus = [
   },
 ];
 
-const totalPrice = (menus) => {
-  menus.reduce((acc, menu) => acc + menu.price);
-};
+const OrderInfoScreen = ({ navigation }) => {
+  const [menus, setMenus] = useState(initialMenus);
+  const [refreshing, setRefreshing] = useState(false);
 
-const OrderInfoScreen = () => {
+  const handleDelete = (menu) => {
+    setMenus(menus.filter((m) => m.id !== menu.id));
+  };
+
+  const totalPrice = (menus) => {
+    menus.reduce((acc, menu) => acc + menu.price);
+  };
+
   return (
     <Screen>
       <FlatList
         data={menus}
         keyExtractor={(menu) => menu.id.toString()}
         renderItem={({ item }) => (
-          <OrderList name={item.name} price={item.price} image={item.image} />
+          <OrderInfo
+            name={item.name}
+            price={item.price}
+            image={item.image}
+            renderRightActions={() => (
+              <ListItemDeleteAction
+                item={item}
+                onPress={() => handleDelete(item)}
+                screenName="OrderDetails"
+              />
+            )}
+          />
         )}
+        ItemSeparatorComponent={ListItemSeparator}
+        refreshing={refreshing}
+        onRefreshing={() => console.log("refreshing")}
       />
       <AppText>Total:{totalPrice(menus)} </AppText>
     </Screen>

@@ -14,6 +14,7 @@ import HomeNavigator from "./navigation/HomeNavigator";
 import AuthNavigator from "./navigation/AuthNavigator";
 import Screen from "./components/Screen";
 import AppNavigator from "./navigation/AppNavigator";
+import OrderProvider from "./context/OrderContext";
 
 export default function App() {
   // const demo = async () => {
@@ -33,8 +34,10 @@ export default function App() {
   // demo();
   // return null;
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <OrderProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </OrderProvider>
   );
 }

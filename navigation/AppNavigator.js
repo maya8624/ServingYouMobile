@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import HomeNavigator from "./HomeNavigator";
-import OrderInfoScreen from "../screens/OrderInfoScreen";
 import AccountNavigator from "./AccountNavigator";
+import OrderInfoNavigator from "./OrderInfoNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ const AppNavigator = () => {
       />
       <Tab.Screen
         name="My Order"
-        component={OrderInfoScreen}
+        component={OrderInfoNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons

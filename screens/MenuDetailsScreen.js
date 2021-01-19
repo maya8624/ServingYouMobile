@@ -1,69 +1,30 @@
 import React from "react";
-import { Image, View, StyleSheet, FlatList, ScrollView } from "react-native";
-import AppButton from "../components/AppButton";
+import { Button, Image, View, StyleSheet, FlatList } from "react-native";
+
 import AppText from "../components/AppText";
 import Screen from "../components/Screen";
-import ListMenu from "../components/ListMenu";
 import colors from "../config/colors";
+import { useOrder } from "../hooks/useOrder";
 
-const menus = [
-  {
-    id: 1,
-    name: "Pork on the grill",
-    price: "35",
-    description: "Lorem Ipsum is not simply random text.",
-    image: require("../assets/pork-belly.jpg"),
-  },
-  {
-    id: 2,
-    name: "Your pizza ready",
-    price: "25",
-    description: "Lorem Ipsum is not simply random text.",
-    image: require("../assets/pizza-3.jpg"),
-  },
-  {
-    id: 3,
-    name: "Never failed with spaghetti",
-    price: "19",
-    description: "Lorem Ipsum is not simply random text.",
-    image: require("../assets/spaghetti.jpg"),
-  },
-];
+const MenuDetailsScreen = ({ route }) => {
+  const menu = route.params.item;
+  const order = useOrder();
 
-const MenuDetailsScreen = () => {
+  const addToCart = (item) => {
+    order.addToCart(item);
+  };
+
   return (
-    <>
-      <Screen style={styles.screen}>
-        <ScrollView>
-          <Image
-            style={styles.image}
-            source={require("../assets/hamburger.jpg")}
-          />
-          <View style={styles.detailsContainer}>
-            <AppText style={styles.name}>Awesome Burger</AppText>
-            <AppText></AppText>
-            <AppText>$25</AppText>
-            <AppText>
-              description="Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Consectetur quibusdam perferendis eligendi minus aliquam
-              odio."
-            </AppText>
-          </View>
-          <FlatList
-            data={menus}
-            keyExtractor={(menu) => menu.id.toString()}
-            renderItem={({ item }) => (
-              <ListMenu
-                name={item.name}
-                price={item.price}
-                description={item.description}
-                image={item.image}
-              />
-            )}
-          ></FlatList>
-        </ScrollView>
-      </Screen>
-    </>
+    <Screen style={styles.screen}>
+      <Image style={styles.image} source={menu.image} />
+      <View style={styles.detailsContainer}>
+        <AppText style={styles.name}>{menu.name}</AppText>
+        <AppText></AppText>
+        <AppText>${menu.price}</AppText>
+        <AppText>{menu.description}</AppText>
+        <Button title="Add To Cart" onPress={() => addToCart(menu)} />
+      </View>
+    </Screen>
   );
 };
 

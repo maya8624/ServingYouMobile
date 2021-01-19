@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import AppText from "./AppText";
 
-const ListMenu = ({ name, price, description, image }) => {
+const MenuList = ({ name, price, description, image }) => {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={image} />
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListMenu;
+export default MenuList;
